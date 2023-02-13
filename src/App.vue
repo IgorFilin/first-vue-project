@@ -1,6 +1,6 @@
 <template>
   <PostForm @createPost="createPost"/>
-  <PostsList :arrayPost="arrayPost"/>
+  <PostsList @deletePost="deletePost" :arrayPost="arrayPost"/>
 </template>
 
 <script>
@@ -45,6 +45,10 @@ export default {
   methods: {
     createPost(post) {
       this.arrayPost.push(post)
+    },
+    deletePost(id){
+      this.arrayPost  = this.arrayPost.filter(el => el.id !== id)
+
     }
   }
 }

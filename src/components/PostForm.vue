@@ -11,10 +11,10 @@
 <script>
 export default {
   name: "PostForm",
-  data(){
+  data() {
     return {
-      title:'',
-      description:'',
+      title: '',
+      description: '',
     }
   },
   methods: {
