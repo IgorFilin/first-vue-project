@@ -4,7 +4,7 @@
       <div><strong>Название:</strong> {{ $props.data.title }}</div>
       <div><strong>Описание:</strong> {{ $props.data.description }}</div>
     </div>
-    <button class="button" @click="deletePostHandler($props.data.id)">X</button>
+    <MyButton @click="deletePostHandler($props.data.id)">Удалить</MyButton>
   </div>
 </template>
 
@@ -40,8 +40,5 @@ export default {
   padding: 5px;
   border: 1px solid black;
 }
-.button{
-  width: 40px;
-  height: 40px;
-}
+
 </style>

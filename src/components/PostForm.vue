@@ -4,11 +4,12 @@
     <input :value="title" @input="onChangeInputGroupHandlerTitle" placeholder="Имя" type="text" class="input">
     <input :value="description" @input="description = $event.currentTarget.value" placeholder="Описание"
            type="text" class="input">
-    <button @click="createPostHandler" class="buttonAddPost">Добавить пост</button>
+    <MyButton @click="createPostHandler">Добавить пост</MyButton>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "PostForm",
   data() {
@@ -46,24 +47,4 @@ export default {
   margin: 2px;
 }
 
-.buttonAddPost {
-  width: 100px;
-  height: 27px;
-  padding: 2px;
-  background: none;
-  color: teal;
-  border: 1px solid;
-  transition: 1s;
-}
-
-.buttonAddPost:hover {
-  background: burlywood;
-  transition: 1s;
-  color: black;
-}
-
-.buttonAddPost:active {
-  background: blue;
-  color: aliceblue;
-}
 </style>
