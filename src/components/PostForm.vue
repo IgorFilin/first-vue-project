@@ -1,17 +1,18 @@
 <template>
   <div class="inputGroup">
     <h2>Создание поста</h2>
-    <input :value="title" @input="onChangeInputGroupHandlerTitle" placeholder="Имя" type="text" class="input">
-    <input :value="description" @input="description = $event.currentTarget.value" placeholder="Описание"
-           type="text" class="input">
+    <MyInput v-model='title' placeholder="Имя"/>
+    <MyInput v-model='description'  placeholder="Описание"/>
     <MyButton @click="createPostHandler">Добавить пост</MyButton>
   </div>
 </template>
 
 <script>
 
+import MyInput from "@/components/commonComponents/MyInput";
 export default {
   name: "PostForm",
+  components: {MyInput},
   data() {
     return {
       title: '',
@@ -19,9 +20,6 @@ export default {
     }
   },
   methods: {
-    onChangeInputGroupHandlerTitle(e) {
-      this.title = e.currentTarget.value
-    },
     createPostHandler() {
       const post = {id: Date.now(), title: this.title, description: this.description}
       this.title = ''
@@ -40,11 +38,6 @@ export default {
   margin-bottom: 20px;
 }
 
-.input {
-  max-width: 200px;
-  max-height: 30px;
-  padding: 5px;
-  margin: 2px;
-}
+
 
 </style>
