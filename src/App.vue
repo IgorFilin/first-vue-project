@@ -1,6 +1,7 @@
 <template>
   <PostForm @createPost="createPost"/>
-  <PostsList @deletePost="deletePost" :arrayPost="arrayPost"/>
+  <PostsList v-if="arrayPost.length > 0" @deletePost="deletePost" :arrayPost="arrayPost"/>
+  <h1 v-else class="postListEmpty">Список постов пуст</h1>
 </template>
 
 <script>
@@ -60,6 +61,9 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-
+.postListEmpty{
+  text-align: center;
+  color: red;
+}
 
 </style>

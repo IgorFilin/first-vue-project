@@ -1,5 +1,5 @@
 <template>
-  <OnePost @deletePost="deletePost" v-bind:data="{title:post.title,description:post.description,id:post.id}"
+  <OnePost @deletePost="(id)=>$emit('deletePost', id)" v-bind:data="{title:post.title,description:post.description,id:post.id}"
            v-for="post in $props.arrayPost"
            :key="post.id"/>
 </template>
@@ -17,9 +17,6 @@ export default {
     return {}
   },
   methods: {
-    deletePost(id) {
-      this.$emit('deletePost', id)
-    }
   }
 }
 
