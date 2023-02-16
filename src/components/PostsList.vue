@@ -1,7 +1,7 @@
 <template>
   <div>
     <OnePost @deletePost="(id)=>$emit('deletePost', id)"
-             v-bind:data="{title:post.title,description:post.description,id:post.id}"
+             v-bind:data="{title:post.title,description:post.body,id:post.id}"
              v-for="post in $props.arrayPost"
              :key="post.id"/>
   </div>

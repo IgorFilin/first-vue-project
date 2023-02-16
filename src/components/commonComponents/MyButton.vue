@@ -13,9 +13,7 @@ export default {
 <style scoped>
 
 .button {
-  width: 100px;
-  height: 27px;
-  padding: 2px;
+  padding: 7px;
   background: none;
   color: teal;
   border: 1px solid;
