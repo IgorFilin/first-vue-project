@@ -1,6 +1,7 @@
 <template>
   <h2>Создайте свой пост</h2>
   <MyButton @click="()=>isShowHandler(true)">Создать пост</MyButton>
+  <MyButton @click="sendPosts">Получить посты</MyButton>
   <ModalWindow :show="isShow" @isShow="isShowHandler">
     <PostForm @createPost="createPost"/>
   </ModalWindow>
@@ -12,6 +13,7 @@
 import PostsList from "@/components/PostsList";
 import PostForm from "@/components/PostForm";
 import ModalWindow from "@/components/commonComponents/ModalWindow";
+import axios from "axios";
 
 export default {
   name: "App",
@@ -46,18 +48,25 @@ export default {
         },
         {id: 6, title: 'Next.js', description: 'Это масштабируемые приложения React производственного уровня'}
       ],
-      isShow:false
+      isShow: false
     }
   },
   methods: {
     createPost(post) {
-      this.arrayPost.push(post)
+      if (post.title !== '' && post.description !== '') {
+        this.arrayPost.push(post)
+        this.isShow = false
+      }
     },
-    deletePost(id){
-      this.arrayPost  = this.arrayPost.filter(el => el.id !== id)
+    deletePost(id) {
+      this.arrayPost = this.arrayPost.filter(el => el.id !== id)
     },
-    isShowHandler(value){
+    isShowHandler(value) {
       this.isShow = value
+    },
+    async sendPosts() {
+      const response = axios.get('https://jsonplaceholder.typicode.com/posts')
+      console.log(response)
     }
   }
 }
@@ -69,7 +78,8 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-.postListEmpty{
+
+.postListEmpty {
   text-align: center;
   color: red;
 }

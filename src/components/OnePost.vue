@@ -4,7 +4,7 @@
       <div><strong>Название:</strong> {{ $props.data.title }}</div>
       <div><strong>Описание:</strong> {{ $props.data.description }}</div>
     </div>
-    <MyButton @click="deletePostHandler($props.data.id)">Удалить</MyButton>
+    <MyButton @click="$emit('deletePost',$props.data.id)">Удалить</MyButton>
   </div>
 </template>
 
