@@ -1,12 +1,12 @@
 <template>
   <h2>Создайте свой пост</h2>
   <MyButton @click="()=>isShowHandler(true)">Создать пост</MyButton>
-  <MyButton @click="sendPosts">Получить посты</MyButton>
   <ModalWindow :show="isShow" @isShow="isShowHandler">
     <PostForm @createPost="createPost"/>
   </ModalWindow>
-  <PostsList v-if="arrayPost.length > 0" @deletePost="deletePost" :arrayPost="arrayPost"/>
-  <h1 v-else class="postListEmpty">Список постов пуст</h1>
+  <PostsList v-if="arrayPost.length > 0 && !isPostLoading" @deletePost="deletePost" :arrayPost="arrayPost"/>
+  <h1 v-else-if="arrayPost.length === 0 && !isPostLoading" class="postListEmpty">Список постов пуст</h1>
+  <h1 v-else-if="isPostLoading">...Посты загружаются</h1>
 </template>
 
 <script>
@@ -21,7 +21,8 @@ export default {
   data() {
     return {
       arrayPost: [],
-      isShow: false
+      isShow: false,
+      isPostLoading:false
     }
   },
   methods: {
@@ -37,11 +38,17 @@ export default {
     isShowHandler(value) {
       this.isShow = value
     },
-    async sendPosts() {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      this.arrayPost = response.data
-    }
+  },
+  mounted() {
+    this.isPostLoading =  true
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+        .then((res) => {
+          this.arrayPost = res.data
+          this.isPostLoading = false
+        })
+        .catch(err => console.warn(err))
   }
+
 }
 </script>
 
