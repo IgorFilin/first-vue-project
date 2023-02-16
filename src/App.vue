@@ -1,5 +1,9 @@
 <template>
-  <PostForm @createPost="createPost"/>
+  <h2>Создайте свой пост</h2>
+  <MyButton @click="()=>isShowHandler(true)">Создать пост</MyButton>
+  <ModalWindow :show="isShow" @isShow="isShowHandler">
+    <PostForm @createPost="createPost"/>
+  </ModalWindow>
   <PostsList v-if="arrayPost.length > 0" @deletePost="deletePost" :arrayPost="arrayPost"/>
   <h1 v-else class="postListEmpty">Список постов пуст</h1>
 </template>
@@ -7,10 +11,11 @@
 <script>
 import PostsList from "@/components/PostsList";
 import PostForm from "@/components/PostForm";
+import ModalWindow from "@/components/commonComponents/ModalWindow";
 
 export default {
   name: "App",
-  components: {PostForm, PostsList},
+  components: {ModalWindow, PostForm, PostsList},
   data() {
     return {
       arrayPost: [
@@ -41,6 +46,7 @@ export default {
         },
         {id: 6, title: 'Next.js', description: 'Это масштабируемые приложения React производственного уровня'}
       ],
+      isShow:false
     }
   },
   methods: {
@@ -49,7 +55,9 @@ export default {
     },
     deletePost(id){
       this.arrayPost  = this.arrayPost.filter(el => el.id !== id)
-
+    },
+    isShowHandler(value){
+      this.isShow = value
     }
   }
 }
