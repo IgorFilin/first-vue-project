@@ -1,10 +1,11 @@
 <template>
   <h2>Создайте свой пост</h2>
-  <MyButton @click="()=>isShowHandler(true)">Создать пост</MyButton>
+  <MyButton @click="() => isShowHandler(true)">Создать пост</MyButton>
+  <MySelect v-model="option" :options="options"/>
   <ModalWindow :show="isShow" @isShow="isShowHandler">
     <PostForm @createPost="createPost"/>
   </ModalWindow>
-  <PostsList v-if="arrayPost.length > 0 && !isPostLoading" @deletePost="deletePost" :arrayPost="arrayPost"/>
+  <PostsList v-if="arrayPost.length > 0 && !isPostLoading" @deletePost="deletePost" :arrayPost="sortArray"/>
   <h1 v-else-if="arrayPost.length === 0 && !isPostLoading" class="postListEmpty">Список постов пуст</h1>
   <h1 v-else-if="isPostLoading">...Посты загружаются</h1>
 </template>
@@ -12,17 +13,18 @@
 <script>
 import PostsList from "@/components/PostsList";
 import PostForm from "@/components/PostForm";
-import ModalWindow from "@/components/commonComponents/ModalWindow";
 import axios from "axios";
 
 export default {
   name: "App",
-  components: {ModalWindow, PostForm, PostsList},
+  components: {PostForm, PostsList},
   data() {
     return {
       arrayPost: [],
       isShow: false,
-      isPostLoading:false
+      isPostLoading: false,
+      option: '',
+      options: [{title: 'По имени',value:'title'}, {title: 'По описанию',value:'body'}]
     }
   },
   methods: {
@@ -38,16 +40,28 @@ export default {
     isShowHandler(value) {
       this.isShow = value
     },
+
   },
   mounted() {
-    this.isPostLoading =  true
+    this.isPostLoading = true
     axios.get('https://jsonplaceholder.typicode.com/posts')
         .then((res) => {
           this.arrayPost = res.data
           this.isPostLoading = false
         })
         .catch(err => console.warn(err))
+  },
+  computed :{
+    sortArray(){
+      debugger
+     return [...this.arrayPost].sort((a, b) => a[this.option]?.localeCompare(b[this.option]))
+    }
   }
+  // watch: {
+  //   option(newValue) {
+  //       this.arrayPost = this.arrayPost.sort((a, b) => a[newValue].localeCompare(b[newValue]))
+  //   }
+  // }
 
 }
 </script>
