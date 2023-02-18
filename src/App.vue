@@ -53,7 +53,6 @@ export default {
   },
   computed :{
     sortArray(){
-      debugger
      return [...this.arrayPost].sort((a, b) => a[this.option]?.localeCompare(b[this.option]))
     }
   }
