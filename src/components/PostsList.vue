@@ -16,6 +16,7 @@ export default {
   props: {
     arrayPost: Array,
   },
+  emits:['deletePost'],
   data() {
     return {}
   },

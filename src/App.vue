@@ -1,11 +1,12 @@
 <template>
   <h2>Создайте свой пост</h2>
+  <MyInput placeholder="Поиск..." v-model="searchTitle" />
   <MyButton @click="() => isShowHandler(true)">Создать пост</MyButton>
   <MySelect v-model="option" :options="options"/>
   <ModalWindow :show="isShow" @isShow="isShowHandler">
     <PostForm @createPost="createPost"/>
   </ModalWindow>
-  <PostsList v-if="arrayPost.length > 0 && !isPostLoading" @deletePost="deletePost" :arrayPost="sortArray"/>
+  <PostsList v-if="arrayPost.length > 0 && !isPostLoading" @deletePost="deletePost" :arrayPost="searchOnTitle"/>
   <h1 v-else-if="arrayPost.length === 0 && !isPostLoading" class="postListEmpty">Список постов пуст</h1>
   <h1 v-else-if="isPostLoading">...Посты загружаются</h1>
 </template>
@@ -14,16 +15,18 @@
 import PostsList from "@/components/PostsList";
 import PostForm from "@/components/PostForm";
 import axios from "axios";
+import MyInput from "@/components/commonComponents/MyInput";
 
 export default {
   name: "App",
-  components: {PostForm, PostsList},
+  components: {MyInput, PostForm, PostsList},
   data() {
     return {
       arrayPost: [],
       isShow: false,
       isPostLoading: false,
       option: '',
+      searchTitle:'',
       options: [{title: 'По имени',value:'title'}, {title: 'По описанию',value:'body'}]
     }
   },
@@ -54,6 +57,10 @@ export default {
   computed :{
     sortArray(){
      return [...this.arrayPost].sort((a, b) => a[this.option]?.localeCompare(b[this.option]))
+    },
+    searchOnTitle(){
+      const array = this.sortArray
+      return array.filter(el => el.title.includes(this.searchTitle))
     }
   }
   // watch: {
