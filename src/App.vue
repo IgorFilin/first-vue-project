@@ -60,7 +60,7 @@ export default {
     },
     searchOnTitle(){
       const array = this.sortArray
-      return array.filter(el => el.title.includes(this.searchTitle))
+      return array.filter(el => el.title.toLowerCase().includes(this.searchTitle.toLowerCase()))
     }
   }
   // watch: {
