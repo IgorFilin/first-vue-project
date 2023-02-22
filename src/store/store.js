@@ -2,8 +2,8 @@ import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import App from './App.vue'
 
-const b = 1
-const a = 23
+const b = {name:'asd'}
+const a = 67
 
 export const store = createStore({
   state () {
