@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 import App from './App.vue'
 
 const b = 1
+const a = 23
 
 export const store = createStore({
   state () {
