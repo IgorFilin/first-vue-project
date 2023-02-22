@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import App from './App.vue'
 
-const b = ''
+const b = 1
 
 export const store = createStore({
   state () {
